@@ -4,52 +4,59 @@ using UnityEngine;
 
 public class playerManager : MonoBehaviour
 {
-    [SerializeField]
-    private string position;
+    private GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        position = "middle";
+        player = GameObject.Find("Player");
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.RightArrow) && position != "right")
+        if(player != null)
         {
-            if (position == "left")
+            if (Input.GetKeyDown(KeyCode.RightArrow) && player.transform.position.x != Constants.POSITION_RIGHT)
             {
-                transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.4f, transform.position.z);
-                position = "middle";
+                moveToRight();
             }
-            else if (position == "middle")
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) && player.transform.position.x != Constants.POSITION_LEFT)
             {
-                transform.position = new Vector3(Constants.POSITION_RIGHT, 0.4f, transform.position.z);
-                position = "right";
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && position != "left")
-        {
-            if (position == "right")
-            {
-                transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.4f, transform.position.z);
-                position = "middle";
-            }
-            else if (position == "middle")
-            {
-                transform.position = new Vector3(Constants.POSITION_LEFT, 0.4f, transform.position.z);
-                position = "left";
+                moveToLeft();
             }
         }
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void moveToRight()
     {
-        if (collision.gameObject.tag == "Obstacles")
+        if (player.transform.position.x == Constants.POSITION_LEFT)
         {
-            Destroy(this.gameObject);
+            player.transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.5f, player.transform.position.z);
+        }
+        else if (player.transform.position.x == Constants.POSITION_MIDDLE)
+        {
+            player.transform.position = new Vector3(Constants.POSITION_RIGHT, 0.5f, player.transform.position.z);
         }
     }
+
+    public void moveToLeft()
+    {
+        if (player.transform.position.x == Constants.POSITION_RIGHT)
+        {
+            player.transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.5f, player.transform.position.z);
+        }
+        else if (player.transform.position.x == Constants.POSITION_MIDDLE)
+        {
+            player.transform.position = new Vector3(Constants.POSITION_LEFT, 0.5f, player.transform.position.z);
+        }
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Obstacles")
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 }
