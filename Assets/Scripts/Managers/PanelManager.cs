@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class panelManager : MonoBehaviour
+public class PanelManager : MonoBehaviour
 {
     public List<GameObject> panels;
     

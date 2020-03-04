@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spawnManager : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     public GameObject[] itens;
     public int current_score;
@@ -19,7 +19,7 @@ public class spawnManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        current_score = GetComponent<scoreManager>().score / 10;
+        current_score = GetComponent<ScoreManager>().score / 10;
 
         if (Time.time >= nextSpawn)
         {

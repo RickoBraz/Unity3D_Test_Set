@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class scoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
     public int score = 0, coin = 0;
     public Text score_text, coin_text;
