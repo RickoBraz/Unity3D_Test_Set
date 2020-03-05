@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public int score = 0, coin = 0;
-    public Text score_text, coin_text;
+    private int score = 0, coin = 0;
+    [SerializeField]
+    private Text scoreText, coinText;
 
-    // Update is called once per frame
+    public int GetScore() => score/10;
+    public int GetCoin() => coin;
+    public void SetScore(int newScore) => score = newScore;
+    public void SetCoin(int newCoin) => coin = newCoin;
+
     void FixedUpdate()
     {
         ScoreAdd(1);
-        score_text.text = (score/10).ToString() + " m";
-        coin_text.text = coin.ToString();
+        scoreText.text = (score/10).ToString() + " m";
+        coinText.text = coin.ToString();
     }
 
     public void ScoreAdd(int i)
@@ -25,5 +30,4 @@ public class ScoreManager : MonoBehaviour
     {
         coin += c;
     }
-
 }

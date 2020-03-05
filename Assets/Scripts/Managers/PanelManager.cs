@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
-    public List<GameObject> panels;
+    [SerializeField]
+    private List<GameObject> panels;
     
     void Start()
     {

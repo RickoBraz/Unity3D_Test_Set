@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject[] itens;
-    public int current_score;
-    [Range(0.0f,1.0f)]
-    public float intervalReduction;
+    [SerializeField]
+    private GameObject[] itens;
+    private int currentScore;
+    [Range(0.0f,1.0f), SerializeField]
+    private float intervalReduction;
     private float interval, nextSpawn;
-    private GameObject[] obstacles_actived;
+    private GameObject[] obstaclesActived;
 
     void Awake()
     {
@@ -19,7 +20,7 @@ public class SpawnManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        current_score = GetComponent<ScoreManager>().score / 10;
+        currentScore = GetComponent<ScoreManager>().GetScore();
 
         if (Time.time >= nextSpawn)
         {
@@ -33,16 +34,16 @@ public class SpawnManager : MonoBehaviour
 
     public void changeInterval()
     {
-        if (current_score > 200) interval = 2.0f - (1.5f * intervalReduction);
-        else if (current_score > 100 && current_score < 150) interval = 2.0f - (1.0f* intervalReduction);
-        else if (current_score > 50 && current_score < 100) interval = 2.0f - (0.5f * intervalReduction);
+        if (currentScore > 200) interval = 2.0f - (1.5f * intervalReduction);
+        else if (currentScore > 100 && currentScore < 150) interval = 2.0f - (1.0f* intervalReduction);
+        else if (currentScore > 50 && currentScore < 100) interval = 2.0f - (0.5f * intervalReduction);
         else interval = 2.0f;
     }
 
     public void destroyAllObstacles()
     {
-        obstacles_actived = GameObject.FindGameObjectsWithTag("Obstacles");
-        foreach (GameObject o in obstacles_actived)
+        obstaclesActived = GameObject.FindGameObjectsWithTag("Obstacles");
+        foreach (GameObject o in obstaclesActived)
         {
             Destroy(o);
         }

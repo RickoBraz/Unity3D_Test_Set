@@ -5,14 +5,38 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     private GameObject GameController;
+    private int screenMiddle;
+    private GameManager GM;
+    private PanelManager PM;
+    private ScoreManager SM;
 
     void Awake()
     {
+        screenMiddle = Screen.width / 2;
         GameController = GameObject.FindGameObjectWithTag("GameController");
+        GM = GameController.GetComponent<GameManager>();
+        PM = GameController.GetComponent<PanelManager>();
+        SM = GameController.GetComponent<ScoreManager>();
     }
 
     void Update()
     {
+        if(Input.touchCount > 0 && GM.GetInGame())
+        {            
+            Touch touch = Input.GetTouch(0);
+            bool isTouchLeft = touch.position.x < screenMiddle;
+            bool isTouchEnded = touch.phase == TouchPhase.Ended;
+            
+            if (!isTouchLeft && isTouchEnded && transform.position.x != Constants.POSITION_RIGHT)
+            {
+                moveToRight();
+            }
+            else if (isTouchLeft && isTouchEnded && transform.position.x != Constants.POSITION_LEFT)
+            {
+                moveToLeft();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.RightArrow) && transform.position.x != Constants.POSITION_RIGHT)
         {
             moveToRight();
@@ -53,13 +77,13 @@ public class PlayerManager : MonoBehaviour
         if (other.gameObject.tag == "money")
         {
             Destroy(other.gameObject);
-            GameController.GetComponent<ScoreManager>().CoinAdd(1);
+            SM.CoinAdd(1);
         }
         else
         {
             this.gameObject.SetActive(false);
-            GameController.GetComponent<GameManager>().GameOver();
-            GameController.GetComponent<PanelManager>().changePanel(2);
+            GM.GameOver();
+            PM.changePanel(2);
         }
     }
 }
