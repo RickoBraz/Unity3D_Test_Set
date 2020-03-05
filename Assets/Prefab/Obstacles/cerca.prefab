@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6711632006572097373}
   - component: {fileID: 6711632006572097372}
   - component: {fileID: -7090468983487574289}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cerca
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
@@ -111,7 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positions: []
-  velocity: 0
 --- !u!65 &-7090468983487574289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,5 +122,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.000002, y: 25, z: 35.000004}
+  m_Size: {x: 20.000002, y: 27.37, z: 35.000004}
   m_Center: {x: -9.500001, y: 17.5, z: 0}

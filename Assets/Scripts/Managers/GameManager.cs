@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioClip menuSound, gameSound;
     private AudioSource source;
-    private bool inGame;
+    private bool inGame, isIA;
 
     public bool GetInGame() => inGame;
+    public bool GetIsIA() => isIA;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +30,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void PlayTheGame()
-    {        
+    public void PlayTheGame(bool IA)
+    {
+        isIA = IA;
         player.transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.5f, player.transform.position.z);
         player.SetActive(true);
         GetComponent<ScoreManager>().SetScore(0);
@@ -46,6 +48,11 @@ public class GameManager : MonoBehaviour
         inGame = false;
         Time.timeScale = 0;
         GetComponent<SpawnManager>().destroyAllObstacles();
+    }
+
+    public void RestartGame()
+    {
+        PlayTheGame(GetIsIA());
     }
 
     public void CloseApplication()

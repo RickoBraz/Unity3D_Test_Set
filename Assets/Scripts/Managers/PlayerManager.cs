@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     private GameManager GM;
     private PanelManager PM;
     private ScoreManager SM;
+    
 
     void Awake()
     {
@@ -17,39 +19,65 @@ public class PlayerManager : MonoBehaviour
         GM = GameController.GetComponent<GameManager>();
         PM = GameController.GetComponent<PanelManager>();
         SM = GameController.GetComponent<ScoreManager>();
+
     }
 
     void Update()
     {
-        if(Input.touchCount > 0 && GM.GetInGame())
-        {            
-            Touch touch = Input.GetTouch(0);
-            bool isTouchLeft = touch.position.x < screenMiddle;
-            bool isTouchEnded = touch.phase == TouchPhase.Ended;
-            
-            if (!isTouchLeft && isTouchEnded && transform.position.x != Constants.POSITION_RIGHT)
+        if (GM.GetInGame())
+        {
+            if (GM.GetIsIA())
             {
-                moveToRight();
-            }
-            else if (isTouchLeft && isTouchEnded && transform.position.x != Constants.POSITION_LEFT)
-            {
-                moveToLeft();
-            }
-        }
+                Ray rayMiddle = new Ray(new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), new Vector3(0, 0, 21));
+                Ray rayLeft = new Ray(new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), new Vector3(45, 0, 21));
+                Ray rayRight = new Ray(new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), new Vector3(-45, 0, 21));
+                RaycastHit hitMiddle;
+                RaycastHit hitLeft;
+                RaycastHit hitRight;
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && transform.position.x != Constants.POSITION_RIGHT)
-        {
-            moveToRight();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && transform.position.x != Constants.POSITION_LEFT)
-        {
-            moveToLeft();
+                bool RayLeft = Physics.Raycast(rayLeft, out hitLeft, 25.0f, LayerMask.GetMask("Obstacles"));
+                bool RayMiddle = Physics.Raycast(rayMiddle, out hitMiddle, 25.0f, LayerMask.GetMask("Obstacles"));
+                bool RayRight = Physics.Raycast(rayRight, out hitRight, 25.0f, LayerMask.GetMask("Obstacles"));
+
+                if (RayMiddle)
+                {
+                    if (!RayLeft)
+                    {
+                        Debug.Log("Raycast Left");
+                        MoveToLeft();
+                    }
+                    else if (!RayRight)
+                    {
+                        Debug.Log("Raycast Right");
+                        MoveToRight();
+                    }
+                }
+            }
+            else
+            {
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    bool isTouchLeft = touch.position.x < screenMiddle;
+                    bool isTouchEnded = touch.phase == TouchPhase.Ended;
+
+                    if (!isTouchLeft && isTouchEnded && transform.position.x != Constants.POSITION_RIGHT)
+                    {
+                        MoveToRight();
+                    }
+                    else if (isTouchLeft && isTouchEnded && transform.position.x != Constants.POSITION_LEFT)
+                    {
+                        MoveToLeft();
+                    }
+                }
+            }
         }
 
     }
 
-    public void moveToRight()
+    public void MoveToRight()
     {
+        Debug.Log("MOVE RIGHT");
         if (transform.position.x == Constants.POSITION_LEFT)
         {
             transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.5f, transform.position.z);
@@ -60,8 +88,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void moveToLeft()
+    public void MoveToLeft()
     {
+        Debug.Log("MOVE LEFT");
         if (transform.position.x == Constants.POSITION_RIGHT)
         {
             transform.position = new Vector3(Constants.POSITION_MIDDLE, 0.5f, transform.position.z);

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 877268579394613596}
   - component: {fileID: 877268579394613595}
   - component: {fileID: 3811293990192696240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tank
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positions: []
-  velocity: -90
 --- !u!54 &877268579394613595
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -123,5 +122,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 23, y: 20, z: 35}
+  m_Size: {x: 23, y: 25, z: 35}
   m_Center: {x: -1, y: 13, z: 1}

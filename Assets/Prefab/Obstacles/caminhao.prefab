@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3974014422116971039}
   - component: {fileID: 3974014422122859173}
   - component: {fileID: 3974014422122859170}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: caminhao
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
@@ -124,4 +124,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positions: []
-  velocity: 0

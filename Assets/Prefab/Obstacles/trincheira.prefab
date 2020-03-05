@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2594320352582622694}
   - component: {fileID: 685386308111324606}
   - component: {fileID: 954700300504981247}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: trincheira
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
@@ -111,7 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positions: []
-  velocity: 0
 --- !u!65 &954700300504981247
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,5 +122,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 21, y: 3, z: 21}
+  m_Size: {x: 16, y: 3, z: 21}
   m_Center: {x: 0, y: 1.5, z: 0}

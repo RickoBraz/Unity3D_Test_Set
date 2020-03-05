@@ -8,7 +8,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> panels;
     
-    void Start()
+    void Awake()
     {
         Time.timeScale = 0;
         closePanels();
