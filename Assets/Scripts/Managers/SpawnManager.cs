@@ -11,16 +11,18 @@ public class SpawnManager : MonoBehaviour
     private float intervalReduction;
     private float interval, nextSpawn;
     private GameObject[] obstaclesActived;
+    private ScoreManager SM;
 
     void Awake()
     {
         interval = 2.0f;
         nextSpawn = 0;
+        SM = GetComponent<ScoreManager>();
     }
 
     void FixedUpdate()
     {
-        currentScore = GetComponent<ScoreManager>().GetScore();
+        currentScore = SM.GetScore();
 
         if (Time.time >= nextSpawn)
         {
